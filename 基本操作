@@ -1,0 +1,25 @@
+docker run IMAGE[COMMAND][ARG...]. 如 docker run ubuntu echo "hello world"
+
+启动交互式容器：docker run -i -t IMAGE /bin/bash.  如docker run -i -t ubuntu /bin/bash
+
+自定义容器名：docker run --name = 自定义名 -i -t IMAGE /bin/bash
+
+重新启动停止的容器：docker statr[-i] 容器名
+
+删除停止的容器：docker rm 容器名
+
+守护式容器：1.能够长期运行 2.没有交互式会话 3.适合运行应用程序和服务
+
+以守护形式运行容器：docker run -i -t IMAGE /bin/bash。     ctrl + P ctrl + Q 两个快捷键同时用使容器进入后台
+
+附加到运行中的容器：docker attach 容器名 重新进入以守护形式运行的容器
+
+以run命令启动守护式容器：docker run -d 镜像名 [COMMAND][arg...]
+
+查看容器日志：docker logs [-f][-t][-tail] 容器名
+
+查看容器内进程：docker top 容器名
+
+在运行中的容器内启动新的进程：docker exec [-d][-i][-t]容器名 [COMMAND][arg...]
+
+停止守护式容器：docker stop 容器名.   docker kill 容器名

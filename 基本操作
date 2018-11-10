@@ -23,3 +23,11 @@ docker run IMAGE[COMMAND][ARG...]. 如 docker run ubuntu echo "hello world"
 在运行中的容器内启动新的进程：docker exec [-d][-i][-t]容器名 [COMMAND][arg...]
 
 停止守护式容器：docker stop 容器名.   docker kill 容器名
+
+设置容器的端口映射：run [-P] [-p].  
+-P 像容器暴露所有的端口 docker run -P -i -t ubuntu /bin/bash
+-p 指定映射哪些端口，有四种格式：
+1.只指定容器端口，此时宿主机端口随机映射：docker run -p 80 -i -t ubuntu /bin/bash
+2.同时指定宿主机端口和容器端口：docker run -p 8080:80 -i -t ubuntu /bin/bash
+3.指定IP和容器的端口：docker run -p 0.0.0.0:80 -i -t ubuntu /bin/bash
+4.指定IP，宿主机和容器的端口：docker run -p 0.0.0.0:8080:80 -i -t ubuntu /bin/bash

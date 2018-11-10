@@ -1,0 +1,31 @@
+设置容器的端口映射：run [-P] [-p].  
+-P 像容器暴露所有的端口 docker run -P -i -t ubuntu /bin/bash
+-p 指定映射哪些端口，有四种格式：
+1.只指定容器端口，此时宿主机端口随机映射：docker run -p 80 -i -t ubuntu /bin/bash
+2.同时指定宿主机端口和容器端口：docker run -p 8080:80 -i -t ubuntu /bin/bash
+3.指定IP和容器的端口：docker run -p 0.0.0.0:80 -i -t ubuntu /bin/bash
+4.指定IP，宿主机和容器的端口：docker run -p 0.0.0.0:8080:80 -i -t ubuntu /bin/bash
+
+在容器中部署静态网站----Nginx部署流程                
+1.创建映射80端口的交互式容器                         
+2.安装Nginx。                                    
+3.安装文本编辑器vim                                
+4.创建静态页面                                     
+5.修改Nginx配置文件
+6.运行Nginx
+7.验证网站访问
+命令如下
+1.docker run -p 80 --name web -i -t ubuntu /bin/bash
+2. apt-get install -y nginx
+3.apt-get install -y vim
+4.mkdir -p /var/www/html vim index.html
+5.whereis nginx
+6.ls /etc/nginx
+7.ls /etc/nginx/sites-enabled
+8.vim /etc/nginx/sites-enabled/default
+9.将 root /usr/share/nginx/html 修改为静态网站配置root /var/www/html
+10.运行nginx 后在容器中查看进程：ps -ef
+
+
+ctl + P ctl + Q将容器在后台运行 通过docker port web查看容器映射情况；通过docker top web查看容器进程情况
+通过curl http://127.0.0.1:端口。 查看网站是否在运行

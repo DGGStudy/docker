@@ -26,6 +26,13 @@
 9.将 root /usr/share/nginx/html 修改为静态网站配置root /var/www/html
 10.运行nginx 后在容器中查看进程：ps -ef
 
+当通过docker stop web命令停止容器后，通过docker start -i web命令重启容器时，nginx并未启动，可以通过docker exec web nginx运行ngnix进程，
+但此时容器的IP地址已经改变，映射到宿主机的端口也已经改变
 
 ctl + P ctl + Q将容器在后台运行 通过docker port web查看容器映射情况；通过docker top web查看容器进程情况
 通过curl http://127.0.0.1:端口。 查看网站是否在运行
+
+
+此时碰到一个问题：假如docker容器IP是172.17.0.2，则通过命令curl http://172.17.0.2会产生错误如下
+curl: (7) Failed to connect to 172.17.0.2 port 80: Operation timed out
+暂时未解决----

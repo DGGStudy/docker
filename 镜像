@@ -1,0 +1,28 @@
+docker镜像：容器的基石，使用联合加载技术实现的层叠的只读文件系统。存储地址／var/lib/docker
+列出镜像：docker images [OPTSIONS] [REPOSITORY]   -a   -f   --no-trunc  -q
+
+REPOSITORY 仓库，一系列镜像的集合
+TAG 标签名，REPOSITORY + TAG 构成了完整的镜像名字
+
+查看镜像：docker inspect [options] CONTAINER|IMAGE [CONTAINER|IMAGE...]
+
+删除镜像： docker rmi [options] IMAGE [IMAGE...]
+  
+查找景象：1.Docker Hub  https://registry.hub.docker.com
+2.docker search [OPTIONS] TERM  --automated  --no-trunc  -s,--stars=0. 最多返回25个结果
+
+拉取镜像 docker pull [OPTIONS] NAME[:TAG]      -a
+使用--registry-mirror选项拉取镜像,配置链接：https://www.daocloud.io
+1.修改：：／etc/default/docker
+2.添加：DOCKER_OPTS="--registry-mirror=http://MIRROR-ADDR"    
+现版本的不需要修改／etc/default/docker，直接在app上修改
+
+推送镜像 docker push NAME[:TAG]
+
+构建镜像：保存对容器的修改，并且再次使用；提供了自定义镜像的能力；以软件的形式打包并分发服务及其运行环境
+docker提供两种构建镜像的方式：
+1.docker commit 通过容器构建。 
+  docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
+
+2.docker build 通过Dockerfile文件构建. -a,--author.  -m,--message   -p
+

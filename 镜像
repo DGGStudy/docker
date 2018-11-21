@@ -22,7 +22,18 @@ TAG 标签名，REPOSITORY + TAG 构成了完整的镜像名字
 构建镜像：保存对容器的修改，并且再次使用；提供了自定义镜像的能力；以软件的形式打包并分发服务及其运行环境
 docker提供两种构建镜像的方式：
 1.docker commit 通过容器构建。 
-  docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
-
-2.docker build 通过Dockerfile文件构建. -a,--author.  -m,--message   -p
+  docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]    -a,--author.  -m,--message   -p
+  案例如下：
+  1.启动一个交互式容器：docker run -it -p 80 --name commit_test ubuntu /bin/bash
+  2.对容器做出修改 apt-get update
+  3.安装nginx  apt-get install -y nginx
+  4.退出 exit
+  5.查看刚刚建立的容器 docker ps -l
+  6.将容器提交为镜像 docker commit -a '617750490du'(作者信息) -m 'nginx'(镜像信息) commit_test(可以是容器名字也可以是容器ID)  617750490度（仓库名）/commit_test1(镜像名)
+    返回的唯一ID就是新生成的镜像的ID
+  7.通过docker images 查看刚刚构成的镜像
+  8.利用我们刚刚生成的镜像运行一个容器，同时在启动时运行nginx命令 docker run -d --name nginx_web1 617750490/commit_test1 nginx -g "daemon off;"
+  
+  
+2.docker build 通过Dockerfile文件构建. 
 

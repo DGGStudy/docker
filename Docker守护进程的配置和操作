@@ -1,0 +1,13 @@
+查看守护进程： pe -ef|grep docker   或者sudo status docker(返回docker start/running,process 进程ID)
+
+使用service命令管理  sudo service docker start;  sudo service docker stop;  sudo service docker restart
+
+当修改了docker的启动配置，就需要service命令重新启动docker服务
+
+docker-d [options] 以守护的形式运行docker  -D,-e,-g,--icc=true,-l,--label=[],-p
+
+Docker服务器连接相关：-G,--group="docker"  -H,--host=[]  --tls=false  --tlsacert="/home/sven/.docker/ca.pem"
+                      --tlscert="/home/sven/.docker/cert.pem"    --tlskey="/home/sven/.docker/key.pem"   --tlsverity=false
+                      
+docker的启动配置文件 ：/etc/default/docker,在该配置文件中可以设置docker启动时运行的各种选项
+例子：1.vim /etc/default/docker 为了使文件可写需要超级权限

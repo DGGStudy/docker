@@ -1,0 +1,20 @@
+user <=>docker客户端 ->(命令)    （执行结果）<- docker守护进程
+
+可以通过Remote API和docker的守护进程进行通信，它是RESTful风格的API，在某些特殊情况下也支持STDIN,STDOUT,STDERR来进行通信和交互
+
+user <=>自定义程序 ->Remote API    Remote API<- docker守护进程
+
+Docker官方的Remote API Reference：http://docs.docker.com/reference/api/docker_remote_api/
+
+docker客户端和守护进程通过socket进行连接，连接方式有三种：
+  1.unix:///var/run/docker.sock
+  2.tcp://host:port
+  3.fd://socketfd
+  
+  例子：
+    1.查看当前进程中是否启动了docker服务  ps -ef | grep docker
+    2.若运行，执行命令 docker version,其实际就是客户端程序和守护进程进行交互
+    3.查看docker的Remote API是什么样的。实现socket的连接：nc -U /var/run/docker.sock(docker使用的socket地址)
+       此时既连接socket
+    4.通过socket发出一个HTTP指令，用来查看Remote API的接口info  :get /info HTTP/1.1
+

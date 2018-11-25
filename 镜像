@@ -26,16 +26,19 @@ docker提供两种构建镜像的方式：
   案例如下：
   1.启动一个交互式容器：docker run -it -p 80 --name commit_test ubuntu /bin/bash
   2.对容器做出修改 apt-get update
-  3.安装nginx  apt-get install -y nginx
+  3.安装nginx  apt-get install -y nginx。  
+    此时可能会出现这种错误：Unable to fetch some archives, maybe run apt-get update or try with --fix-missing
+    解决方法：sudo vim /etc/resolv.conf    添加nameserver 8.8.8.8
+  
   4.退出 exit
   5.查看刚刚建立的容器 docker ps -l
-  6.将容器提交为镜像 docker commit -a '617750490du'(作者信息) -m 'nginx'(镜像信息) commit_test(可以是容器名字也可以是容器ID)  617750490度（仓库名）/commit_test1(镜像名)
+  6.将容器提交为镜像 docker commit -a '617750490du'(作者信息) -m 'nginx'(镜像信息) commit_test(可以是容器名字也可以是容器ID)  617750490du( 1仓库名）/commit_test1(镜像名)
     返回的唯一ID就是新生成的镜像的ID
   7.通过docker images 查看刚刚构成的镜像
   8.利用我们刚刚生成的镜像运行一个容器，同时在启动时运行nginx命令 docker run -d --name nginx_web1 617750490du/commit_test1 nginx -g "daemon off;"
   9.利用docker ps 查看容器的运行情况，此时发现不能查看容器的运行情况，因为步骤8中忘记制定映射端口。
   10.再次运行一个容器并且制定一个端口：docker run -d --name nginx_web2 -p 80 617750490du/commit_test1 nginx -g "daemon off;"
-  11.用映射后的端口来访问 curl://127.0.0.1:映射端口，可以看到能够访问nginx服务
+  11.用映射后的端口来访问 curl http://127.0.0.1:映射端口，可以看到能够访问nginx服务
   
   
 2.docker build 通过Dockerfile文件构建. 
@@ -47,14 +50,14 @@ docker提供两种构建镜像的方式：
     1.创建存放Dockerfile的目录 mkdir -p dockerfile/df_test1
     2.进入目录中cd dockerfile/df_test1
     3.编辑文件 vim df_test1 
-      #First Dockerfile
+      #First Dockerfilea
       FROM ubuntu:14.04           镜像的基础
       MAINTAINER 617750490du  "617750490@qq.com"   镜像的维护人
       RUN apt-get update
       RUN apt-get install -y nginx      镜像中执行中的命令
       EXPOSE 80                         暴露的端口
       
-     4.docekr build -t='617750490du/df_test1'(镜像名字) .(dockerfile目录，此时为当前目录.)
+     4.docekr build -t '617750490du/df_test1'(镜像名字) .(dockerfile目录，此时为当前目录. 此处坑比较多，当不用当前目录时，可写为：-f 目录 .（.要加上，否则报错))
      5.docker images查看新构成的镜像
      6.运行这个镜像  docker run -d --name nginx_web2 -p 80 617750490du/df_test1 nginx -g "daemon off;"
      7.用映射后的端口来访问 curl://127.0.0.1:映射端口，可以看到能够访问nginx服务

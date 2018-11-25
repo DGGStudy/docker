@@ -8,7 +8,7 @@ TAG 标签名，REPOSITORY + TAG 构成了完整的镜像名字
 
 删除镜像： docker rmi [options] IMAGE [IMAGE...]
   
-查找景象：1.Docker Hub  https://registry.hub.docker.com
+查找镜像：1.Docker Hub  https://registry.hub.docker.com
 2.docker search [OPTIONS] TERM  --automated  --no-trunc  -s,--stars=0. 最多返回25个结果
 
 拉取镜像 docker pull [OPTIONS] NAME[:TAG]      -a

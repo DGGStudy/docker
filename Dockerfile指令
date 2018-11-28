@@ -1,0 +1,7 @@
+1.FROM <image>   FROM <image>:<tag>    镜像是已经存在的镜像，在dockerfile中必须是第一条非注释指令
+
+2.MAINTAINER <name>指定镜像的作者信息，包含镜像的所有者和联系信息
+
+3.RUN指令，指定当前镜像中运行的命令，包含两种模式：
+  RUN <command>  (shell模式)。此模式下，在/bin/sh -c command 形式执行命令，如：RUNe echo hello
+  RUN ["executable","param1","param2"] (exec模式)  此模式下，可指定其他形式的shell运行指令，如：RUN ["/bin/bash","-c","echo hello"]

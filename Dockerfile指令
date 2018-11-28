@@ -8,7 +8,31 @@
 
 4.EXPOSE <port>[<port>...]制定运行该镜像的容器使用的端口
 
-5.CMD ["executable","param1","param2"] (exec模式)       比如：CMD ["／usr/sbin/nginx","-g","daemon off"]
+5.CMD ["executable","param1","param2"] (exec模式)       比如：CMD ["／usr/sbin/nginx","-g","daemon off;"]
   CMD command param1 param2 (shell模式)
   CMD ["param1","param2"] (作为ENTRYPOINT指令的默认参数)  
   RUN指定的命令是在镜像构建中运行的，CMD指定的命令是在容器运行时运行的。
+
+6.ENTREYPOINT["executable","param1","param2"] (exec模式). 
+  ENTREYPOINT command param1 param2 (shell模式) 
+  与CMD指令相似，但是ENTREYPOINT命令不会被docker run命令中指定的启动命令所覆盖，当需要覆盖ENTREYPOINT命令时，可以使用docker run --entrypoint将其覆盖
+  
+ 7.ADD <src>...<dest>        （将文件或目录复制到dockerfile构建的镜像中）
+   ADD ["<src>"..."<dest>"](适用于文件路径中有空格的情况)
+  
+ 8.COPY <src>...<dest>       （将文件或目录复制到dockerfile构建的镜像中）
+   COPY ["<src>"..."<dest>"](适用于文件路径中有空格的情况)
+   ADD vs. COPY   ADD包含类似tar的解压功能，如果单纯复制文件，Docker推荐使用COPY
+   
+ 9.VOLUME["/data"]  用来向基于镜像创建的容器添加卷 
+ 
+ 10.WORKDIR /path/to/workdir. 从镜像创建一个新容器时，在容器内部设置工作目录。
+ 
+ 11.ENV <key><value>
+    ENV <key><value>...
+    
+ 12.USER daemon. 用来指定镜像会以什么样的用户去运行  如USER nginx. 基于该镜像启动的容器就会以nginx身份运行
+ 
+ 13.ONBUILD [INSTRUCTION]能够为镜像添加触发器
+  CMD ["param1","param2"] (作为ENTRYPOINT指令的默认参数)  3
+  CMD ["param1","param2"] (作为ENTRYPOINT指令的默认参数
